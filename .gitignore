@@ -25,3 +25,13 @@ Thumbs.db
 *.sqlite3
 *.log
 database/data/  # สมมติว่าเก็บข้อมูลดิบไว้ในนี้
+
+# Ngrok & Executables
+ngrok.exe
+ngrok.yml
+*.exe
+
+# Local Scripts
+run_sleepcare.ps1
+*.ps1
+*.sh
