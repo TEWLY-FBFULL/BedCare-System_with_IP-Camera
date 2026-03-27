@@ -1,0 +1,27 @@
+# Python 
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker & IDE
+.vscode/
+.idea/
+.docker/
+
+# Environment Variables (สำคัญมาก! ห้ามอัปไฟล์ที่มีรหัสผ่าน)
+.env
+.env.*
+!.env.example
+
+# Database (ถ้ามีไฟล์ sqlite หรือ log)
+*.sqlite3
+*.log
+database/data/  # สมมติว่าเก็บข้อมูลดิบไว้ในนี้

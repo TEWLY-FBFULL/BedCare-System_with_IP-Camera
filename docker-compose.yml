@@ -1,0 +1,88 @@
+networks:
+  sleepcare_net:
+
+volumes:
+  pgadmin_data:
+
+services:
+  web:
+    image: httpd:2.4
+    container_name: sleepcare_gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ./web/apache.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - api
+    networks:
+      - sleepcare_net
+  api:
+    build: ./api
+    container_name: sleepcare_api
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ./api/app:/app/app
+    env_file:
+      - .env
+    environment:
+      PYTHONUNBUFFERED: 1
+      DATABASE_URL: ${DATABASE_URL}
+      MQTT_HOST: ${MQTT_HOST}
+      MQTT_HOST_EXTERNAL: ${MQTT_HOST_EXTERNAL}
+      MQTT_PORT_EXTERNAL: ${MQTT_PORT_EXTERNAL}
+    depends_on:
+      - database
+      - mqtt
+    networks:
+      - sleepcare_net
+  database:
+    image: timescale/timescaledb:2.14.2-pg14
+    container_name: sleepcare_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - sleepcare_net
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: sleepcare_mqtt
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mqtt/password.txt:/mosquitto/config/password.txt
+    networks:
+      - sleepcare_net
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: sleepcare_portainer
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - sleepcare_net
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: sleepcare_pgadmin
+    ports:
+      - "127.0.0.1:5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - database
+    networks:
+      - sleepcare_net

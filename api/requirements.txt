@@ -1,0 +1,33 @@
+cffi==1.17.1
+pillow==11.3.0
+psycopg2-binary==2.9.10
+pycparser==2.22
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+pydantic==1.10.15
+pydantic[email]==1.10.15
+sqlalchemy==2.0.30
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+paho-mqtt==1.6.1
+PyJWT==2.8.0
+bcrypt==4.0.1
+cryptography
+apscheduler
+# onnx==1.16.0
+# onnxruntime-gpu==1.17.1
+torch==2.4.1
+torchvision==0.19.1
+torchaudio==2.4.1
+typing_extensions==4.15.0
+# ultralytics==8.4.9
+numpy==1.26.4
+opencv-python==4.9.0.80
+# mediapipe==0.10.11
+absl-py==2.3.1
+attrs==25.3.0
+flatbuffers==25.2.10
+# protobuf==3.20.3
+gTTS
+python-telegram-bot
+pydub

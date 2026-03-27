@@ -1,0 +1,10 @@
+version: "2"
+authtoken: 3A4ZztBvkCovUrAmlvse7IDVQ80_4ui2FswvzGqwAfSkctddC
+tunnels:
+  sleepcare_gateway:
+    proto: http
+    addr: 80
+    domain: sleepcare.ngrok.app
+  sleepcare_mqtt:
+    proto: tcp
+    addr: 1883
