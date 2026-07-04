@@ -13,7 +13,7 @@ The system detects the presence of both a person and a bed before analyzing the 
 - AI-based sleeping posture detection
 - RESTful API with FastAPI
 - WebSocket for live updates
-- MySQL database
+- PostgreSQL and Timescaledb database
 - Docker Compose deployment
 
 ---
@@ -24,9 +24,9 @@ The system detects the presence of both a person and a bed before analyzing the 
 |----------|------------|
 | Backend | FastAPI |
 | AI Model | YOLOv8, MediaPipe |
-| Database | MySQL |
+| Database | PostgreSQL, Timescaledb |
 | ORM | SQLAlchemy |
-| Communication | WebSocket |
+| Communication | WebSocket, MQTT |
 | Container | Docker Compose |
 
 ---
@@ -92,33 +92,10 @@ FastAPI
       ├── REST API
       ├── WebSocket
       ▼
-MySQL Database
+Timescaledb Database
       │
       ▼
 Frontend Dashboard
-```
-
----
-
-# Project Structure
-
-```text
-project/
-│
-├── backend/
-│   ├── api/
-│   ├── services/
-│   ├── models/
-│   ├── database/
-│   └── ai/
-│
-├── frontend/
-│
-├── docs/
-│   └── images/
-│
-├── docker-compose.yml
-└── README.md
 ```
 
 ---
